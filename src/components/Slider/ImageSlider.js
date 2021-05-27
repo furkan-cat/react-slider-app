@@ -8,12 +8,10 @@ const ImageSlider = ({ slides }) => {
 
   const nextSlide = () => {
     setCurrentImg(currentImg === slides.length - 1 ? 0 : currentImg + 1);
-    console.log(`next slide ${currentImg}`);
   };
 
   const prevSlide = () => {
     setCurrentImg(currentImg === 0 ? slides.length - 1 : currentImg - 1);
-    console.log(`prev slide ${slides.length}`);
   };
 
   return (
@@ -21,63 +19,40 @@ const ImageSlider = ({ slides }) => {
       <AiOutlineArrowLeft onClick={prevSlide} className={classes.left} />
       <AiOutlineArrowRight onClick={nextSlide} className={classes.right} />
 
-      {SliderData.map((slide, i) => {
-        return (
-          <div
-            className={
-              i === currentImg ? `${classes["slide-left-right"]} ${classes.active}` : null
-            }
-            key={i}
-          >
-            {i === currentImg && (
-              <img
-                src={slide.image}
-                alt={i}
-                alt="nature image"
-                className={classes["image-left-right"]}
-              />
-            )}
-          </div>
-        );
-      })}
+      <div
+        className={`${classes["image-left-right-box"]} ${classes["slide-left-right"]}`}
+      >
+        <img
+          src={
+            SliderData[
+              currentImg - 1 === -1 ? SliderData.length - 1 : currentImg - 1
+            ].image
+          }
+          alt="nature image"
+          className={`${classes.images}`}
+        />
+      </div>
 
-      {SliderData.map((slide, i) => {
-        return (
-          <div
-            className={
-              i === currentImg
-                ? `${classes.slide} ${classes.active}`
-                : classes.slide
-            }
-            key={i}
-          >
-            {i === currentImg && (
-              <img src={slide.image} alt={i} className={classes.image} />
-            )}
-          </div>
-        );
-      })}
+      <div className={`${classes["image-center-box"]}`}>
+        <img
+          src={SliderData[currentImg].image}
+          className={`${classes.images}`}
+        />
+      </div>
 
-      {SliderData.map((slide, i) => {
-        return (
-          <div
-            className={
-              i
-                ? `${classes["slide-left-right"]} ${classes.active}`
-                : classes.slide
-            }
-            key={i}
-          >
-            {i === currentImg + 1 && (
-              <img
-                src={slide.image}
-                alt={i}
-                className={classes["image-left-right"]}
-              />
-            )}
-          </div>
-        );
-      })}
+      <div
+        className={`${classes["image-left-right-box"]} ${classes["slide-left-right"]}`}
+      >
+        <img
+          src={
+            SliderData[
+              currentImg + 1 === SliderData.length ? 0 : currentImg + 1
+            ].image
+          }
+          alt="nature image"
+          className={`${classes.images}`}
+        />
+      </div>
     </section>
   );
 };
